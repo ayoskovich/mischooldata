@@ -1,25 +1,32 @@
 library(shiny)
 library(shinythemes)
 library(shinipsum)
+library(tidyverse)
+
+BASE_THEME <- theme_bw() + theme(
+  axis.ticks = element_blank()
+)
 
 ui <- fluidPage(
-  theme = shinytheme('slate'),
-  titlePanel('MI School Data: An Alternative Approach'),
+  theme = shinytheme("slate"),
+  titlePanel("MI School Data: An Alternative Approach"),
   tabsetPanel(type='tabs',
     tabPanel("About This", 
       fluidRow(
-        column(4, random_text(nwords = 100)),
+        column(4, read_file('txts/about.txt')),
         column(4, plotOutput(outputId = 'rPlot'), offset = 2)
       )
     ),
     tabPanel("Individual Lookup",
       fluidRow(
-        column(4, random_text(nwords = 100, offset = 1))
+        column(4, random_text(nwords = 100, offset = 1)),
+        column(4, plotOutput(outputId = 'plt'), offset = 2)
       )
     ),
     tabPanel("Comparison",
       fluidRow(
-        column(4, random_text(nwords = 100, offset = 2))
+        column(4, random_text(nwords = 100, offset = 2)),
+        column(4, plotOutput(outputId = 'rib'), offset = 2)
       )
     ),
     tabPanel("Analyze",
@@ -32,7 +39,15 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   output$rPlot <- renderPlot({
-    random_ggplot('point')
+    random_ggplot('point') + BASE_THEME
+  })
+
+  output$plt <- renderPlot({
+    random_ggplot('bar')
+  })
+
+  output$rib <- renderPlot({
+    random_ggplot('ribbon')
   })
 }
 
