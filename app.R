@@ -13,7 +13,7 @@ ui <- fluidPage(
   tabsetPanel(type='tabs',
     tabPanel("About This", 
       fluidRow(
-        column(4, read_file('txts/about.txt')),
+        column(4, uiOutput(outputId = "about")),
         column(4, plotOutput(outputId = 'rPlot'), offset = 2)
       )
     ),
@@ -48,6 +48,10 @@ server <- function(input, output) {
 
   output$rib <- renderPlot({
     random_ggplot('ribbon')
+  })
+
+  output$about <- renderUI({
+    HTML(read_file('txts/about.html'))
   })
 }
 
