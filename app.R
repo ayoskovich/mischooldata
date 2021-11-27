@@ -1,31 +1,25 @@
 library(shiny)
 library(shinythemes)
+library(shinipsum)
 
-ui <- fluidPage(theme = shinytheme('slate'),
-  titlePanel("Hello Shiny!"),
+ui <- fluidPage(
+  theme = shinytheme('slate'),
+  titlePanel('MI School Data: An Alternative Approach'),
   sidebarLayout(
-    sidebarPanel(
-      sliderInput(inputId = "bins",
-                  label = "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30)
-    ),
+    sidebarPanel(random_text(nwords = 50)),
     mainPanel(
-      plotOutput(outputId = "distPlot")
+      tabsetPanel(type='tabs',
+        tabPanel("About This", random_text(nwords = 100)),
+        tabPanel("Individual Lookup", random_text(nwords = 100, offset = 1)),
+        tabPanel("Comparison", random_text(nwords = 100, offset = 2)),
+        tabPanel("Analyze", random_text(nwords = 100, offset = 3))
+      )
     )
   )
 )
 
 server <- function(input, output) {
-  output$distPlot <- renderPlot({
-    x <- faithful$waiting
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
 
-    hist(x, breaks = bins, col = "#75AADB", border = "white",
-         xlab = "Waiting time to next eruption (in mins)",
-         main = "Eruption times")
-    })
 }
 
 shinyApp(ui=ui, server = server)
