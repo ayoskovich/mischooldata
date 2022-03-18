@@ -1,11 +1,3 @@
-library(shiny)
-library(shinythemes)
-library(shinipsum)
-library(tidyverse)
-
-base_theme <- theme_bw() + theme(
-  axis.ticks = element_blank()
-)
 
 ui <- fluidPage(
   theme = shinytheme("slate"),
@@ -39,15 +31,3 @@ ui <- fluidPage(
 
   )
 )
-
-server <- function(input, output) {
-  output$rPlot <- renderPlot({
-    random_ggplot("point") + base_theme
-  })
-
-  output$about <- renderUI({
-    HTML(read_file("txts/about.html"))
-  })
-}
-
-shinyApp(ui=ui, server = server)
