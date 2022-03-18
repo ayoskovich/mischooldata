@@ -34,12 +34,9 @@ INDEXES <- c(
 ) %>% 
   paste0(collapse='|')
 
-# isAEC schools
-both <- bind_rows(
+base_data <- bind_rows(
   old, new
-) 
-
-both %>% 
+) %>% 
   select(
     AcademicYear,
     matches(MATCHES),
@@ -60,7 +57,21 @@ both %>%
       str_starts(name, 'Participation') ~ 'Participation',
       str_starts(name, 'SubgroupPerformance') ~ 'SubgroupPerformance',
       str_starts(name, 'Identification') ~ 'ID'
+    ),
+    subcategory = case_when(
+      str_detect(name, 'Combined') ~ 'combined',
+      str_detect(name, 'ELA') ~ 'ELA',
+      str_detect(name, 'Math') ~ 'Math'
     )
   ) %>% 
-  filter(is.na(rate_type)) %>% 
-  View()
+  filter(!is.na(value))
+
+
+base_data %>% 
+  filter(
+    str_detect(BuildingName, 'Cooper Elementary'),
+    rate_type == 'letter grade'
+  ) %>% 
+  select(-matches('ISD|District|Building'))
+
+  
