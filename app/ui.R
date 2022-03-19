@@ -13,19 +13,19 @@ ui <- fluidPage(
 
     tabPanel("School Lookup",
       fluidRow(
-        column(4, random_text(nwords = 100, offset = 1))
+        column(4, random_text(nwords = 100), offset = 1)
       )
     ),
 
     tabPanel("School Comparison",
       fluidRow(
-        column(4, random_text(nwords = 100, offset = 2))
+        column(4, random_text(nwords = 100), offset = 2)
       )
     ),
 
     tabPanel("Analyze",
       fluidRow(
-        column(4, random_text(nwords = 100, offset = 3))
+        column(4, random_text(nwords = 100), offset = 3)
       )
     )
   )
