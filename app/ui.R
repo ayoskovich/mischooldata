@@ -28,6 +28,5 @@ ui <- fluidPage(
         column(4, random_text(nwords = 100, offset = 3))
       )
     )
-
   )
 )
