@@ -3,9 +3,9 @@ library(tidylog)
 library(readxl)
 library(janitor)
 
-old <- read_excel('app/data/201819_School_Grades.xlsx')
+old <- read_excel('app/data/2018-19_School_Grades_683671_7.xlsx')
 # I have no clue where I got the 2020-21 file from...
-new <- read_excel('app/data/')
+new <- read_excel('app/data/2020-21_School_Grades_Results_741650_7.xlsx')
 
 compare_df_cols(
   old, new
